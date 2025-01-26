@@ -32,7 +32,7 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
     };
 
     storage.saveNote(completeNote);
-    router.push('/notes');
+    router.push('/');
   };
 
   console.log(isNew ? 'new note' : 'edit note');
