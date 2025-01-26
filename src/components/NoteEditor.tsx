@@ -1,7 +1,7 @@
 'use client';
 
 import { Note } from '@/types/Note';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { storage } from '@/lib/storage';
 import { useRouter } from 'next/navigation';
 
@@ -35,6 +35,7 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
     router.push('/notes');
   };
 
+  console.log(isNew ? 'new note' : 'edit note');
   return (
     <div className="space-y-4">
       <input
