@@ -35,9 +35,8 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
     router.push('/');
   };
 
-  console.log(isNew ? 'new note' : 'edit note');
   return (
-    <div className="space-y-4">
+    <div className={`space-y-4 ${isNew ? 'bg-gray-50 dark:bg-gray-900' : ''}`}>
       <input
         type="text"
         value={note.title}
