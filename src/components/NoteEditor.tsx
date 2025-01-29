@@ -41,13 +41,13 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
         type="text"
         value={note.title}
         onChange={(e) => setNote({ ...note, title: e.target.value })}
-        placeholder="Titre de la note"
+        placeholder="Note title"
         className="w-full p-2 text-xl font-bold bg-transparent border-b focus:outline-none focus:border-foreground"
       />
       <textarea
         value={note.content}
         onChange={(e) => setNote({ ...note, content: e.target.value })}
-        placeholder="Contenu de la note..."
+        placeholder="Start writing your note..."
         className="w-full h-[60vh] p-2 bg-transparent focus:outline-none resize-none"
       />
       <div className="flex justify-end gap-2">
@@ -55,13 +55,13 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
           onClick={() => router.back()}
           className="px-4 py-2 rounded-lg border hover:bg-gray-100 dark:hover:bg-gray-900"
         >
-          Annuler
+          Cancel
         </button>
         <button
           onClick={handleSave}
           className="px-4 py-2 rounded-lg bg-foreground text-background hover:opacity-90"
         >
-          Sauvegarder
+          Save
         </button>
       </div>
     </div>

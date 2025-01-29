@@ -21,7 +21,7 @@ export default function NoteList({ notes }: NoteListProps) {
             {note.content}
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
-            Modifié le {new Date(note.updatedAt).toLocaleDateString()}
+            Last modified: {new Date(note.updatedAt).toLocaleDateString('en-EN')}
           </p>
         </Link>
       ))}
