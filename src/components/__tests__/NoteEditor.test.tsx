@@ -40,22 +40,22 @@ describe('NoteEditor', () => {
   it('renders empty form for new note', () => {
     render(<NoteEditor isNew />);
 
-    expect(screen.getByPlaceholderText('Titre de la note')).toHaveValue('');
-    expect(screen.getByPlaceholderText('Contenu de la note...')).toHaveValue('');
+    expect(screen.getByPlaceholderText('Note title')).toHaveValue('');
+    expect(screen.getByPlaceholderText('Start writing your note...')).toHaveValue('');
   });
 
   it('renders form with initial note data', () => {
     render(<NoteEditor initialNote={mockNote} />);
 
-    expect(screen.getByPlaceholderText('Titre de la note')).toHaveValue('Test Note');
-    expect(screen.getByPlaceholderText('Contenu de la note...')).toHaveValue('Test Content');
+    expect(screen.getByPlaceholderText('Note title')).toHaveValue('Test Note');
+    expect(screen.getByPlaceholderText('Start writing your note...')).toHaveValue('Test Content');
   });
 
   it('updates note content when typing', () => {
     render(<NoteEditor isNew />);
 
-    const titleInput = screen.getByPlaceholderText('Titre de la note');
-    const contentInput = screen.getByPlaceholderText('Contenu de la note...');
+    const titleInput = screen.getByPlaceholderText('Note title');
+    const contentInput = screen.getByPlaceholderText('Start writing your note...');
 
     fireEvent.change(titleInput, { target: { value: 'New Title' } });
     fireEvent.change(contentInput, { target: { value: 'New Content' } });
@@ -67,7 +67,7 @@ describe('NoteEditor', () => {
   it('does not save when title or content is empty', () => {
     render(<NoteEditor isNew />);
 
-    const saveButton = screen.getByText('Sauvegarder');
+    const saveButton = screen.getByText('Save');
     fireEvent.click(saveButton);
 
     expect(storage.saveNote).not.toHaveBeenCalled();
@@ -76,9 +76,9 @@ describe('NoteEditor', () => {
   it('saves note when both title and content are filled', () => {
     render(<NoteEditor isNew />);
 
-    const titleInput = screen.getByPlaceholderText('Titre de la note');
-    const contentInput = screen.getByPlaceholderText('Contenu de la note...');
-    const saveButton = screen.getByText('Sauvegarder');
+    const titleInput = screen.getByPlaceholderText('Note title');
+    const contentInput = screen.getByPlaceholderText('Start writing your note...');
+    const saveButton = screen.getByText('Save');
 
     fireEvent.change(titleInput, { target: { value: 'New Title' } });
     fireEvent.change(contentInput, { target: { value: 'New Content' } });
@@ -93,8 +93,8 @@ describe('NoteEditor', () => {
   it('preserves note ID when editing existing note', () => {
     render(<NoteEditor initialNote={mockNote} />);
 
-    const titleInput = screen.getByPlaceholderText('Titre de la note');
-    const saveButton = screen.getByText('Sauvegarder');
+    const titleInput = screen.getByPlaceholderText('Note title');
+    const saveButton = screen.getByText('Save');
 
     fireEvent.change(titleInput, { target: { value: 'Updated Title' } });
     fireEvent.click(saveButton);
@@ -109,9 +109,9 @@ describe('NoteEditor', () => {
   it('generates new ID for new note using crypto.randomUUID', () => {
     render(<NoteEditor isNew />);
 
-    const titleInput = screen.getByPlaceholderText('Titre de la note');
-    const contentInput = screen.getByPlaceholderText('Contenu de la note...');
-    const saveButton = screen.getByText('Sauvegarder');
+    const titleInput = screen.getByPlaceholderText('Note title');
+    const contentInput = screen.getByPlaceholderText('Start writing your note...');
+    const saveButton = screen.getByText('Save');
 
     fireEvent.change(titleInput, { target: { value: 'New Title' } });
     fireEvent.change(contentInput, { target: { value: 'New Content' } });
