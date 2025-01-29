@@ -1,3 +1,34 @@
+# Note App
+
+## Overview
+
+A simple and elegant note-taking application built with Next.js, created as an excuse to write some code.
+This app allows users to:
+
+- Create, edit and delete notes
+- Store notes locally in the browser
+- Responsive and modern interface with dark mode support
+- Progressive Web App (PWA) for offline usage
+
+## Features
+
+- Persistent local storage of notes
+- Minimalist text editor
+- Intuitive user interface
+- Full dark mode support
+- Works offline
+- Comprehensive unit tests
+
+## Technologies Used
+
+- Next.js 15
+- React 19
+- TypeScript
+- TailwindCSS
+- Jest & Testing Library
+- PWA with next-pwa
+
+---
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -6,12 +37,6 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -29,8 +54,8 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Deploy on Netlify
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This application is deployed on [Netlify](https://www.netlify.com/).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For more information about deploying Next.js on Netlify, check out the [Netlify Next.js documentation](https://docs.netlify.com/integrations/frameworks/next-js/overview/).
