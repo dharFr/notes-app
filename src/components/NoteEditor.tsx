@@ -144,7 +144,7 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
       <div
         ref={editorRef}
         contentEditable
-        className="w-full h-[60vh] p-2 bg-transparent focus:outline-none"
+        className="w-full h-[60vh] p-2 bg-transparent focus:outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-gray-400"
         onInput={(e) => {
           const sanitizedContent = DOMPurify.sanitize(e.currentTarget.innerHTML, {
             ALLOWED_TAGS: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'br'],
@@ -153,7 +153,7 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
           setNote({ ...note, content: sanitizedContent });
         }}
         dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-        placeholder="Start writing your note..."
+        data-placeholder="Start writing your note..."
       />
 
       <div className="flex justify-end gap-2">
