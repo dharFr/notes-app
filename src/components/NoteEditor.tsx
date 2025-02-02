@@ -4,6 +4,7 @@ import { Note } from '@/types/Note';
 import { useState, useRef } from 'react';
 import { storage } from '@/lib/storage';
 import { useRouter } from 'next/navigation';
+import DOMPurify from 'dompurify';
 
 interface NoteEditorProps {
   initialNote?: Note;
@@ -81,11 +82,21 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
       }
     }
 
-    // Mettre à jour le contenu dans l'état
+    // Mettre à jour le contenu dans l'état avec sanitization
     if (editorRef.current) {
-      setNote(prev => ({ ...prev, content: editorRef.current.innerHTML }));
+      const sanitizedContent = DOMPurify.sanitize(editorRef.current.innerHTML, {
+        ALLOWED_TAGS: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'br'],
+        ALLOWED_ATTR: []
+      });
+      setNote(prev => ({ ...prev, content: sanitizedContent }));
     }
   };
+
+  // Sanitize initial content
+  const sanitizedContent = note.content ? DOMPurify.sanitize(note.content, {
+    ALLOWED_TAGS: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'br'],
+    ALLOWED_ATTR: []
+  }) : '';
 
   return (
     <div className={`space-y-4 ${isNew ? 'bg-gray-50 dark:bg-gray-900' : ''}`}>
@@ -134,8 +145,14 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
         ref={editorRef}
         contentEditable
         className="w-full h-[60vh] p-2 bg-transparent focus:outline-none"
-        onInput={(e) => setNote({ ...note, content: e.currentTarget.innerHTML })}
-        dangerouslySetInnerHTML={{ __html: note.content }}
+        onInput={(e) => {
+          const sanitizedContent = DOMPurify.sanitize(e.currentTarget.innerHTML, {
+            ALLOWED_TAGS: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'br'],
+            ALLOWED_ATTR: []
+          });
+          setNote({ ...note, content: sanitizedContent });
+        }}
+        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
         placeholder="Start writing your note..."
       />
 
