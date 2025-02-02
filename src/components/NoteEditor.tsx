@@ -1,7 +1,7 @@
 'use client';
 
 import { Note } from '@/types/Note';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { storage } from '@/lib/storage';
 import { useRouter } from 'next/navigation';
 import DOMPurify from 'dompurify';
@@ -98,6 +98,12 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
     ALLOWED_ATTR: []
   }) : '';
 
+  useEffect(() => {
+    if (editorRef.current && sanitizedContent) {
+      editorRef.current.innerHTML = sanitizedContent;
+    }
+  }, []); // Uniquement à l'initialisation
+
   return (
     <div className={`space-y-4 ${isNew ? 'bg-gray-50 dark:bg-gray-900' : ''}`}>
       <input
@@ -144,7 +150,7 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
       <div
         ref={editorRef}
         contentEditable
-        className="w-full h-[60vh] p-2 bg-transparent focus:outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-gray-400"
+        className="w-full h-[60vh] p-2 bg-transparent focus:outline-none empty:before:content-[attr(data-placeholder)] empty:before:text-gray-400 rich-text-content"
         onInput={(e) => {
           const sanitizedContent = DOMPurify.sanitize(e.currentTarget.innerHTML, {
             ALLOWED_TAGS: ['p', 'strong', 'em', 'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'br'],
@@ -152,7 +158,7 @@ export default function NoteEditor({ initialNote, isNew = false }: NoteEditorPro
           });
           setNote({ ...note, content: sanitizedContent });
         }}
-        dangerouslySetInnerHTML={{ __html: sanitizedContent }}
+        suppressContentEditableWarning
         data-placeholder="Start writing your note..."
       />
 

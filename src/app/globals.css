@@ -19,3 +19,19 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer base {
+  .rich-text-content ul {
+    @apply list-disc pl-5;
+  }
+  
+  .rich-text-content ol {
+    @apply list-decimal pl-5;
+  }
+}
+
+@layer components {
+  .rich-text-content {
+    @apply [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5;
+  }
+} 
